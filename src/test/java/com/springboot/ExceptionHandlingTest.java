@@ -1,15 +1,17 @@
 package com.springboot;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.springboot.exception.InvalidFieldException;
 import com.springboot.exception.InvalidHeaderFieldException;
 import com.springboot.handler.ExceptionHandling;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class ExceptionHandlingTest {
 
     @InjectMocks
