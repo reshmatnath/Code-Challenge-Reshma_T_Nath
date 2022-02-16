@@ -2,6 +2,7 @@ package com.springboot.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.management.InstanceNotFoundException;
 
@@ -17,6 +18,8 @@ public interface FlowerService {
 	public List<FlowerRequest> modifyRequest(String request) throws JsonParseException, JsonMappingException, IOException;
 
 	public List<FlowerRequest> modifyRequestById(String request, int id) throws JsonParseException, JsonMappingException, IOException, InstanceNotFoundException, Exception;
+
+	public Map<String, Long> getAllUserIdCount(String request) throws IOException;
 	
 	
 }

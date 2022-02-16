@@ -2,6 +2,7 @@ package com.springboot.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
@@ -21,6 +22,13 @@ public class FlowerController {
 	
 	@Autowired
 	private FlowerService flowerServices;
+
+	@RequestMapping(value = "/getAllUserIdCount")
+	public Map<String,Long> getAllUserIdCount(@RequestBody String request) throws IOException {
+		
+		return flowerServices.getAllUserIdCount(request);
+
+	}
 
 	@RequestMapping(value = "/getAllUserIds")
 	public List<FlowerResponse> getAllUserIds(@RequestBody String request) throws IOException {
