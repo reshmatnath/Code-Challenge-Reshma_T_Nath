@@ -20,22 +20,17 @@ import com.springboot.service.FlowerService;
 
 @Service
 public class FlowerServiceImpl implements FlowerService {
-	
+
 	@Override
 	public Map<String, Long> getAllUserIdCount(String request) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Long> userCount = new HashMap<>();
-		try {
-			if (!request.isBlank()) {
-				List<FlowerRequest> flowerRequestList = Arrays.asList(mapper.readValue(request, FlowerRequest[].class));
-				long count = flowerRequestList.stream().map(FlowerRequest::getUserId).distinct().count();
-				userCount.put("Unique User Count", count);
-
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw e;
+		if (!request.isBlank()) {
+			List<FlowerRequest> flowerRequestList = Arrays.asList(mapper.readValue(request, FlowerRequest[].class));
+			long count = flowerRequestList.stream().map(FlowerRequest::getUserId).distinct().count();
+			userCount.put("Unique User Count", count);
 		}
+
 		return userCount;
 	}
 
@@ -54,50 +49,45 @@ public class FlowerServiceImpl implements FlowerService {
 		return flowerRequestList;
 
 	}
+
 	public List<FlowerResponse> getAllUserIds(String request) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		List<Integer> userIdList = new ArrayList<>();
 		List<FlowerResponse> flowerResponseList = new ArrayList<>();
-		try {
-			if (!request.isBlank()) {
-				List<FlowerRequest> flowerRequestList = Arrays.asList(mapper.readValue(request, FlowerRequest[].class));
-				userIdList = flowerRequestList.stream().map(FlowerRequest::getUserId).distinct()
-						.collect(Collectors.toList());
-				for (Integer user : userIdList) {
-					int count = 0;
-					for (FlowerRequest requestItem : flowerRequestList) {
-						if (user == requestItem.getUserId()) {
-							count++;
-						}
+		if (!request.isBlank()) {
+			List<FlowerRequest> flowerRequestList = Arrays.asList(mapper.readValue(request, FlowerRequest[].class));
+			userIdList = flowerRequestList.stream().map(FlowerRequest::getUserId).distinct()
+					.collect(Collectors.toList());
+			for (Integer user : userIdList) {
+				int count = 0;
+				for (FlowerRequest requestItem : flowerRequestList) {
+					if (user == requestItem.getUserId()) {
+						count++;
 					}
-					FlowerResponse flowerResponse = new FlowerResponse();
-					flowerResponse.setUserId(user);
-					flowerResponse.setCount(count);
-					flowerResponseList.add(flowerResponse);
 				}
+				FlowerResponse flowerResponse = new FlowerResponse();
+				flowerResponse.setUserId(user);
+				flowerResponse.setCount(count);
+				flowerResponseList.add(flowerResponse);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw e;
 		}
 		return flowerResponseList;
 	}
-
 
 	@Override
 	public List<FlowerRequest> modifyRequestById(String request, int id) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		List<FlowerRequest> flowerRequestList = new ArrayList<>();
-		boolean flag= false;
+		boolean flag = false;
 		if (!request.isBlank()) {
 			flowerRequestList = Arrays.asList(mapper.readValue(request, FlowerRequest[].class));
-			if(flowerRequestList.size()>=id) {
-				flowerRequestList.get(id-1).setBody("1800Flowers");
-				flowerRequestList.get(id-1).setTitle("1800Flowers");
-				flag=true;
+			if (flowerRequestList.size() >= id) {
+				flowerRequestList.get(id - 1).setBody("1800Flowers");
+				flowerRequestList.get(id - 1).setTitle("1800Flowers");
+				flag = true;
 			}
-			
-			if(!flag) {
+
+			if (!flag) {
 				throw new Exception("Reuested element is not found.Please try again..");
 			}
 

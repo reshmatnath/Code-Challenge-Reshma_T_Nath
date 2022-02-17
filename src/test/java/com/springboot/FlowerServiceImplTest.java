@@ -1,10 +1,17 @@
 package com.springboot;
 
+import static org.mockito.Mockito.doThrow;
+
+import java.io.IOException;
+
 import javax.validation.constraints.AssertTrue;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.springboot.service.impl.FlowerServiceImpl;
@@ -15,6 +22,9 @@ public class FlowerServiceImplTest {
 
 	@InjectMocks
 	private FlowerServiceImpl flowerServiceImpl;
+	
+	@Mock
+	private FlowerServiceImpl flowerServiceImpl1;
 
 	@Test
 	public void testGetAllUserIds() throws Exception {
@@ -90,5 +100,4 @@ public class FlowerServiceImplTest {
 		flowerServiceImpl.getAllUserIdCount(request);
 	}
 	
-
 }

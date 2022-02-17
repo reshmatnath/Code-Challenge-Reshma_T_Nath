@@ -21,19 +21,12 @@ import com.springboot.service.FlowerService;
 public class FlowerController {
 	
 	@Autowired
-	private FlowerService flowerServices;
+	FlowerService flowerServices;
 
 	@RequestMapping(value = "/getAllUserIdCount")
 	public Map<String,Long> getAllUserIdCount(@RequestBody String request) throws IOException {
 		
 		return flowerServices.getAllUserIdCount(request);
-
-	}
-
-	@RequestMapping(value = "/getAllUserIds")
-	public List<FlowerResponse> getAllUserIds(@RequestBody String request) throws IOException {
-		
-		return flowerServices.getAllUserIds(request);
 
 	}
 
@@ -44,6 +37,13 @@ public class FlowerController {
 
 	}
 	
+	@RequestMapping(value = "/getAllUserIds")
+	public List<FlowerResponse> getAllUserIds(@RequestBody String request) throws IOException {
+		
+		return flowerServices.getAllUserIds(request);
+
+	}
+
 	@RequestMapping(value = "/modifyRequestById/{id}")
 	public List<FlowerRequest> modifyRequestById(@PathVariable int id,@RequestBody String request) throws Exception {
 		
